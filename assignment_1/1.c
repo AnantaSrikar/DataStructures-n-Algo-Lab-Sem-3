@@ -1,20 +1,32 @@
 #include<stdio.h>
-int main()
+#include<stdlib.h>
+#include<string.h>
+#include<ctype.h>
+int main(int argc, char **argv)
 {
+	int input_arr[argc - 1];
+
+	for(int i = 1; i <= argc - 1; i++)
+	{
+		for(int j = 0; j < strlen(argv[i]); j++)
+			if(!isdigit(argv[i][j]))
+			{
+				printf("Please enter only numbers!\n");
+				return -1;
+			}
+
+		input_arr[i - 1] = atoi(argv[i]);
+	}
+	
 	int get_diff(int, int);
 
-	int num_of_coins;
-
-	scanf("%d", &num_of_coins);
+	int num_of_coins = input_arr[0];
 
 	int weights[num_of_coins];
 
 	for(int i = 0; i < num_of_coins; i++)
-		if(i != num_of_coins - 1)
-			scanf("%d ", &weights[i]);
-		else
-			scanf("%d", &weights[i]);
-
+		weights[i] = input_arr[i + 1];
+	
 	for(int i = 0; i < num_of_coins; i++)	
 
 		// For odd number of weights
