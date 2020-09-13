@@ -32,34 +32,29 @@ int main(int argc, char **argv)
 	while(side_size >= 1)
 	{
 		printf("%d %d\n", get_sum(weights, l, l + side_size - 1), get_sum(weights, l + side_size, l + 2 * side_size - 1));
-		printf("l = %d, side_size = %d\n", l, side_size);
 
 		if(get_sum(weights, l, l + side_size - 1) == get_sum(weights, l + side_size, l + 2 * side_size - 1))
 		{
-			printf("Fake coin found at %d = %d\n", l + 2 * side_size, weights[l + 2 * side_size]);
+			printf("%d %d\n", l + 2 * side_size, weights[l + 2 * side_size - 1] - weights[l + 2 * side_size]);
 			break;
 		}
 
 		else if(side_size == 1 && weights[l] != weights[l + 1])
 		{
 			if(weights[l] < weights[l + 1])
-				printf("Fake coin found at %d = %d\n", l , weights[l]);
+				printf("%d %d\n", l , weights[l + 1] - weights[l]);
 			
 			else
-				printf("Fake coin found at %d = %d\n", l + 1 , weights[l + 1]);
+				printf("%d %d\n", l + 1 , weights[l] - weights[l + 1]);
 			
 			break;
 		}
 
 		else if(get_sum(weights, l, l + side_size - 1) < get_sum(weights, l + side_size, l + 2 * side_size - 1))
-		{
-			printf("Do something\n");
 			side_size /= 2;
-		}
 
 		else if(get_sum(weights, l, l + side_size - 1) > get_sum(weights, l + side_size, l + 2 * side_size - 1))
 		{
-			printf("Do something\n");
 			l += side_size;
 			side_size /= 2;
 		}
