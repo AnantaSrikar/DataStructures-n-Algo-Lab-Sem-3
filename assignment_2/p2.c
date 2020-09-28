@@ -20,7 +20,11 @@ int main(int argc, char **argv)
 		input_arr[i - 1] = atoi(argv[i]);
 	}
 
-	// End of Command line input code
+	if(argc != input_arr[0] + input_arr[input_arr[0] + 1] + 3)
+	{
+		printf("error");
+		return -1;
+	}
 
 	int search_element(int[], int, int);
 	void find_union_and_intersection(int*, int*, int, int);
