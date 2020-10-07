@@ -48,11 +48,11 @@ int main(int argc, char **argv)
 	return(0);
 }
 
-int find_element(int input_arr[], int size, int element)
+int find_element_2(int input_arr[], int size, int element)
 {
 	int first_found = 0;
 
-	for(int i = 1; i < size + 2; i++)
+	for(int i = 1; i < size; i++)
 	{
 		if(input_arr[i] == element)
 			if(first_found)
@@ -62,6 +62,16 @@ int find_element(int input_arr[], int size, int element)
 	}
 
 	return -1;
+}
+
+int find_element_last(int input_arr[], int size, int element)
+{
+	int index = -1;
+	for(int i = 1; i < size; i++)
+		if(input_arr[i] == element)
+				index = i;
+
+	return index;
 }
 
 void exer_1(int input_arr[], int argc)
@@ -77,7 +87,7 @@ void exer_1(int input_arr[], int argc)
 
 	int arr[arr_size + 1], key = input_arr[argc - 2];
 
-	int index = find_element(input_arr, arr_size, key);
+	int index = find_element_2(input_arr, arr_size + 2, key);
 
 	if(index > 1)
 	{
@@ -112,7 +122,46 @@ void exer_1(int input_arr[], int argc)
 
 void exer_2(int input_arr[], int argc)
 {
-	printf("p2");
+	if(input_arr[1] + 4 != argc)
+	{
+		printf("error");
+		exit(0);
+	}
+
+	int arr_size = input_arr[1] - 1;
+
+	int arr[arr_size], key = input_arr[argc - 2];
+
+	int index = find_element_last(input_arr, arr_size + 3, key);
+
+	if(index > 1)
+	{
+		index -= 2;
+
+		for(int i = 0; i < arr_size; i++)
+		{
+			if(i < index)
+				arr[i] = input_arr[i + 2];
+
+			else if (i >= index)
+			{
+				arr[i] = input_arr[i + 3];
+			}
+
+			if(i == arr_size - 1)
+				printf("%d", arr[i]);
+
+			else
+				printf("%d ", arr[i]);
+		}
+	}
+
+	else
+	{
+		printf("error");
+		exit(0);
+	}
+
 }
 
 void exer_3(int input_arr[], int argc)
