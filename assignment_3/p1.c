@@ -74,6 +74,19 @@ int find_element_last(int input_arr[], int size, int element)
 	return index;
 }
 
+int is_prime(int num)
+{
+	if(num < 2)
+		return 0;
+	
+	else
+		for(int i = 2; i < num; i++)
+			if(num % i == 0)
+				return 0;
+
+	return 1;
+}
+
 void exer_1(int input_arr[], int argc)
 {
 
@@ -166,6 +179,25 @@ void exer_2(int input_arr[], int argc)
 
 void exer_3(int input_arr[], int argc)
 {
-	printf("p3");
-}
+	int cnt = 0, arr[input_arr[1]];
 
+	if(input_arr[1] + 3 != argc)
+	{
+		printf("error");
+		exit(0);
+	}
+
+	for(int i = 2; i < argc - 1; i++)
+		if(is_prime(input_arr[i]))
+			if((i > 4) && !is_prime(i))
+				arr[cnt++] = input_arr[i];
+
+	for(int i = 0; i < cnt; i++)
+		if(i == cnt - 1)
+			printf("%d", arr[i]);
+		else
+			printf("%d ", arr[i]);
+
+	if(!cnt)
+		printf("#");
+}
