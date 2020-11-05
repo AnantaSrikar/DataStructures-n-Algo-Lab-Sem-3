@@ -63,14 +63,8 @@ int main(int argc, char **argv)
 	return(0);
 }
 
-void exer_1(int input_arr[], int size)
+node *get_linked_list(int input_arr[], int size)
 {
-	if(size < 2)
-	{
-		printf("error"); // Too less arguments!
-		exit(0);
-	}
-
 	node *first_node_ptr, *temp;
 
 	for(int i = 1; i < size ; i++)
@@ -99,6 +93,21 @@ void exer_1(int input_arr[], int size)
 			temp -> next = NULL;
 	}
 
+	return first_node_ptr;
+}
+
+void exer_1(int input_arr[], int size)
+{
+	if(size < 2)
+	{
+		printf("error"); // Too less arguments!
+		exit(0);
+	}
+
+	node *first_node_ptr, *temp;
+
+	first_node_ptr = get_linked_list(input_arr, size);
+	
 	temp = first_node_ptr;
 
 	int cnt = 0;
