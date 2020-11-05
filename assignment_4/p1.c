@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
+#include<ctype.h>
 
 struct node
 {
@@ -16,7 +18,7 @@ int main(int argc, char **argv)
 
 	if(!(argc > 1))
 	{
-		printf("error"); // Please enter only numbers!
+		printf("error"); // Too less arguments!
 		return -1;
 	}
 
@@ -36,22 +38,22 @@ int main(int argc, char **argv)
 
 	// End of Command line input code
 
-	void exer_1(int[]);
-	void exer_2(int[]);
-	void exer_3(int[]);
+	void exer_1(int[], int);
+	void exer_2(int[], int);
+	void exer_3(int[], int);
 
-	switch(input_arr[1])
+	switch(input_arr[0])
 	{
 		case 1:
-				exer_1(input_arr);
+				exer_1(input_arr, argc - 1);
 				break;
 
 		case 2:
-				exer_2(input_arr);
+				exer_2(input_arr, argc - 1);
 				break;
 
 		case 3:
-				exer_3(input_arr);
+				exer_3(input_arr, argc - 1);
 				break;
 
 		default:
@@ -61,17 +63,21 @@ int main(int argc, char **argv)
 	return(0);
 }
 
-void exer_1(int input_arr[])
+void exer_1(int input_arr[], int size)
 {
+	if(size < 2)
+	{
+		printf("error"); // Too less arguments!
+		exit(0);
+	}
+
 	node *first_node_ptr, *temp;
 
-	int size = sizeof(input_arr) - 1;
-
-	for(int i = 1; i <= size ; i++)
+	for(int i = 1; i < size ; i++)
 	{
 		node *new_node;
 
-		if(i == 0)
+		if(i == 1)
 		{
 			first_node_ptr = (node*)malloc(sizeof(node));
 			temp = first_node_ptr;
@@ -89,7 +95,7 @@ void exer_1(int input_arr[])
 			temp = new_node;
 		}
 
-		if(i == size)
+		if(i == size - 1)
 			temp -> next = NULL;
 	}
 
@@ -110,12 +116,12 @@ void exer_1(int input_arr[])
 		printf("1");
 }
 
-void exer_2(int input_arr[])
+void exer_2(int input_arr[], int size)
 {
 	// TODO: finish it
 }
 
-void exer_3(int input_arr[])
+void exer_3(int input_arr[], int size)
 {
 	// TODO: finish it
 }
