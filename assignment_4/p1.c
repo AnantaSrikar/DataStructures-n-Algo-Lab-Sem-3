@@ -155,8 +155,6 @@ void exer_2(int input_arr[], int size)
 	
 	temp = first_node_ptr;
 
-	
-
 	while(temp != NULL)
 	{
 		if(isPrime(temp -> data))
@@ -201,5 +199,19 @@ void exer_2(int input_arr[], int size)
 
 void exer_3(int input_arr[], int size)
 {
-	// TODO: finish it
+	node *first_node_ptr, *temp;
+
+	first_node_ptr = get_linked_list(input_arr, size);
+	
+	temp = first_node_ptr;
+
+	int sum = 0;
+
+	while(temp != NULL)
+	{
+		sum += temp -> data;
+		temp = temp -> next;
+	}
+
+	printf("%d", sum);
 }
