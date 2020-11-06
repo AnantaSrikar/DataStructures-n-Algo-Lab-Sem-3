@@ -143,12 +143,6 @@ int isPrime(int num)
 
 void exer_2(int input_arr[], int size)
 {
-	if(size < 2)
-	{
-		printf("error"); // No elements in the linked list!
-		exit(0);
-	}
-
 	node *first_node_ptr, *temp, *prime_nos = NULL, *prime_temp;
 
 	first_node_ptr = get_linked_list(input_arr, size);
@@ -181,19 +175,24 @@ void exer_2(int input_arr[], int size)
 	}
 
 	if(prime_nos != NULL)
+	{
 		prime_temp -> next = NULL;
 
-	temp = prime_nos;
+		temp = prime_nos;
 
-	while(temp != NULL)
-	{
-		if(temp -> next != NULL)
-			printf("%d ", temp -> data);
-		else
-			printf("%d", temp -> data);
-		
-		temp = temp -> next;
+		while(temp != NULL)
+		{
+			if(temp -> next != NULL)
+				printf("%d ", temp -> data);
+			else
+				printf("%d", temp -> data);
+			
+			temp = temp -> next;
+		}
 	}
+
+	else
+		printf("#");
 
 }
 
