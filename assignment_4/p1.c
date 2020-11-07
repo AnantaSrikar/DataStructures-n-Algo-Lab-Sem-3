@@ -16,12 +16,6 @@ int main(int argc, char **argv)
 
 	// Initial code to get all command line values
 
-	if(!(argc > 1))
-	{
-		printf("error"); // Too less arguments!
-		return -1;
-	}
-
 	int input_arr[argc - 1];
 
 	for(int i = 1; i <= argc - 1; i++)
