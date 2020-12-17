@@ -22,49 +22,55 @@ typedef struct node_str node_str;
 
 int main(int argc, char **argv)
 {
-
-	// Initial code to get all command line values
-
-	// int input_arr[argc - 1];
-
-	// for(int i = 1; i <= argc - 1; i++)
-	// {
-	// 	for(int j = 0; j < strlen(argv[i]); j++)
-	// 		if(!isdigit(argv[i][j]) && argv[i][j] != '-')
-	// 		{
-	// 			printf("error"); // Please enter only numbers!
-	// 			return -1;
-	// 		}
-
-	// 	input_arr[i - 1] = atoi(argv[i]);
-	// }
 	void *get_input_array(int, char**);
-	void build_bin_tree(void*, int, int);
+	void *build_bin_tree(void*, int, int);
 
-	// End of Command line input code
+	void exer_1(node_int*);
+	void exer_2(node_int*, int);
+	void exer_3(node_str*);
 
-	// void exer_1(int[], int);
-	// void exer_2(int[], int);
-	// void exer_3(int[], int);
+	if(argc == 1)
+	{
+		printf("error"); // No question number -_-
+		return -1;
+	}
+
+	if(argc < 3)
+	{
+		printf("#"); // No elements in the linked list
+		return(0);
+	}
 
 	int ques_no = atoi(argv[1]);
 
 	if(ques_no == 3)
 	{
 		char *input_array = get_input_array(argc, argv);
-		build_bin_tree(input_array, argc - 2, 1);
-		// for(int i = 0; i < argc - 2; i++)
-		// 	printf("%c\n", input_array[i]);
+		
+		node_str *root = (node_str*)build_bin_tree(input_array, argc - 2, 1);
+		
+		exer_3(root);
 	}
 
 	else if(ques_no == 1 || ques_no == 2)
 	{
 		int *input_array = get_input_array(argc, argv);
+		node_int *root = NULL;
 
-		build_bin_tree(input_array, argc - 2, 0);
+		switch(ques_no)
+		{
+			case 1:
+					root = (node_int*)build_bin_tree(input_array, argc - 2, 0);
 
-		// for(int i = 0; i < argc - 2; i++)
-		// 	printf("%d\n", input_array[i]);
+					exer_1(root);
+					break;
+
+			case 2:
+					root = (node_int*)build_bin_tree(input_array, argc - 3, 0);
+
+					exer_2(root, input_array[argc - 3]);
+					break;
+		}
 	}
 
 	else
@@ -172,7 +178,6 @@ node_str* insertLevelOrder_str(char **arr, node_str *root, int size, int i)
 	return root;
 }
 
-
 void inOrder_int(node_int* root)
 { 
 	if (root != NULL)
@@ -193,32 +198,84 @@ void inOrder_str(node_str* root)
 	} 
 } 
 
-void build_bin_tree(void *input_array_ptr, int size, int is_char)
+void *build_bin_tree(void *input_array_ptr, int size, int is_char)
 {
 	if(is_char)
 	{
 		char **input_array = (char**)input_array_ptr;
-		
-		// for(int i = 0; i < size; i++)
-		// 	printf("%s\n", *(input_array + i));
 
 		node_str *root;
 		root = insertLevelOrder_str(input_array, root, size, 0);
 
-		inOrder_str(root);
+		return root;
 	}
 	
 	else
 	{
 		int *input_array = (int*)input_array_ptr;
 
-		// for(int i = 0; i < size; i++)
-		// 	printf("%d\n", *(input_array + i));
-
 		node_int *root;
 
 		root = insertLevelOrder_int(input_array, root, size, 0);
 
-		inOrder_int(root);
+		return root;
 	}
+}
+
+void find_max(node_int *root, int *max, int *max_level, int cur_level)
+{
+	if(root != NULL)
+	{
+		if(*max < root -> data)
+		{
+			*max = root -> data;
+			*max_level = cur_level;
+		}
+
+		find_max(root -> left, max, max_level, cur_level + 1);
+		find_max(root -> right, max, max_level, cur_level + 1);
+	}
+}
+
+void exer_1(node_int *root)
+{
+	int max = root -> data, max_level = 1;
+
+	find_max(root, &max, &max_level, 1);
+
+	printf("%d %d", max, max_level);
+}
+
+void get_sum_at_level(node_int *root, int *sum, int cur_level, int gn_level, int *lvl_check)
+{
+	if(root != NULL)
+	{
+		if(cur_level == gn_level)
+		{
+			if(!*lvl_check)
+				*lvl_check = 1;
+			*sum += root -> data;
+			return;
+		}
+
+		get_sum_at_level(root -> left, sum, cur_level + 1, gn_level, lvl_check);
+		get_sum_at_level(root -> right, sum, cur_level + 1, gn_level, lvl_check);
+	}
+}
+
+void exer_2(node_int *root, int gn_level)
+{
+	int sum = 0, lvl_check = 0;
+	get_sum_at_level(root, &sum, 1, gn_level, &lvl_check);
+
+	if(!lvl_check)
+		printf("#");
+	
+	else
+		printf("%d", sum);
+}
+
+void exer_3(node_str *root)
+{
+	printf("TODO\n");
 }
