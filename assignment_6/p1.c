@@ -45,9 +45,9 @@ int main(int argc, char **argv)
 
 	if(ques_no == 3)
 	{
-		char *input_array = get_input_array(argc, argv);
-		
-		node_str *root = (node_str*)build_bin_tree(input_array, argc - 2, 1);
+		char **input_array = get_input_array(argc, argv);
+
+		node_str *root = (node_str*)build_bin_tree(input_array, argc - 2, 1); // TODO: fix here
 		
 		exer_3(root);
 	}
@@ -133,7 +133,9 @@ node_str* makeNewNode_str(char data[])
 {
 	node_str *new_node = (node_str*)malloc(sizeof(node_str));
 
+	new_node -> data = (char*)malloc(sizeof(char) * strlen(data));
 	strcpy(new_node -> data, data);
+
 	new_node -> left = new_node -> right = NULL;
 	
 	return new_node;
@@ -178,16 +180,6 @@ node_str* insertLevelOrder_str(char **arr, node_str *root, int size, int i)
 	return root;
 }
 
-void inOrder_int(node_int* root)
-{ 
-	if (root != NULL)
-	{ 
-		inOrder_int(root -> left);
-		printf("%d ", root -> data);
-		inOrder_int(root -> right);
-	} 
-}
-
 void inOrder_str(node_str* root)
 { 
 	if (root != NULL)
@@ -205,7 +197,7 @@ void *build_bin_tree(void *input_array_ptr, int size, int is_char)
 		char **input_array = (char**)input_array_ptr;
 
 		node_str *root;
-		root = insertLevelOrder_str(input_array, root, size, 0);
+		root = insertLevelOrder_str(input_array, root, size, 0); // TODO: fix here
 
 		return root;
 	}
@@ -277,5 +269,5 @@ void exer_2(node_int *root, int gn_level)
 
 void exer_3(node_str *root)
 {
-	printf("TODO\n");
+	inOrder_str(root);
 }
